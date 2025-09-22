@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelector(href).scrollIntoView({
                     behavior: 'smooth'
                 });
-                // 모바일 메뉴가 열려있다면 클릭 시 닫기
                 if (mainNav && mainNav.classList.contains('is-active')) {
                     mainNav.classList.remove('is-active');
                 }
@@ -50,35 +49,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 4. 팝업(모달) 기능 --- (기존 코드는 그대로 둡니다)
+    // --- 4. 팝업(모달) 공통 기능 ---
     const openModalButtons = document.querySelectorAll('.open-modal-btn');
     const closeModalButtons = document.querySelectorAll('.close-modal-btn');
     const modalOverlays = document.querySelectorAll('.modal-overlay');
 
+    // 모달 여는 함수
+    function openModal(modal) {
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    // 모달 닫는 함수
+    function closeModal(modal) {
+         if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
     openModalButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const modalId = button.getAttribute('data-modal-target');
-            const modal = document.querySelector(modalId);
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
+            const modal = document.querySelector(button.getAttribute('data-modal-target'));
+            openModal(modal);
         });
     });
 
     closeModalButtons.forEach(button => {
         button.addEventListener('click', () => {
             const modal = button.closest('.modal-overlay');
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
+            closeModal(modal);
         });
     });
 
     modalOverlays.forEach(overlay => {
         overlay.addEventListener('click', (event) => {
             if (event.target === overlay) {
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
+                closeModal(overlay);
             }
         });
     });
@@ -86,43 +95,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             const activeModal = document.querySelector('.modal-overlay.active');
-            if (activeModal) {
-                activeModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            closeModal(activeModal);
         }
     });
 
-
-    /* =================================================================
-        ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ 팝업창 스크립트 (여기로 통합) ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
-       ================================================================= */
-       
-    const popupOverlay = document.getElementById('popup-overlay');
-    const closeBtn = document.getElementById('popup-close-btn');
-    const confirmBtn = document.getElementById('popup-confirm-btn');
-
-    function showPopup() {
-        if(popupOverlay) {
-            popupOverlay.classList.remove('popup-hidden');
-        }
+    // =================================================================
+    // ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ 페이지 로드 시 자동 팝업 실행 ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+    // =================================================================
+    const noticePopup = document.getElementById('notice-popup');
+    if (noticePopup) {
+        // 약간의 시간차를 두고 팝업을 띄워 더 부드러운 느낌을 줍니다.
+        setTimeout(() => {
+            openModal(noticePopup);
+        }, 500); // 0.5초 후에 실행
     }
-
-    function hidePopup() {
-        if(popupOverlay) {
-            popupOverlay.classList.add('popup-hidden');
-        }
-    }
-
-    // 처음 페이지가 열렸을 때 팝업을 보여줍니다.
-    showPopup();
-
-    // 닫기 버튼들(X 버튼, 하단 버튼)을 클릭하면 팝업을 숨깁니다.
-    if(closeBtn) {
-        closeBtn.addEventListener('click', hidePopup);
-    }
-    if(confirmBtn) {
-        confirmBtn.addEventListener('click', hidePopup);
-    }
-    
-}); // <<<--- 모든 코드가 이 괄호 안에 있도록 합니다.
+});
