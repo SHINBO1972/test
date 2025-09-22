@@ -11,7 +11,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-6MQ2C4646W');
     </script>
 </head>
@@ -58,9 +57,9 @@
         </div>
     </footer>
     
-    <div id="popup-overlay" class="popup-hidden">
-        <div id="popup-window">
-            <button id="popup-close-btn" aria-label="팝업 닫기">&times;</button>
+    <div id="notice-popup" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn" aria-label="팝업 닫기">&times;</button>
             
             <h3>ONE TEAM, ONE SHINBO</h3>
             <h2>신보웹진 2호, 2026년 3월에 돌아옵니다.</h2>
@@ -74,11 +73,10 @@
                 한 걸음 더 나아간 깊이 있는 인사이트로 찾아뵙겠습니다.
             </p>
     
-            <button id="popup-confirm-btn">닫기</button>
+            <button class="close-modal-btn">닫기</button>
         </div>
     </div>
     <script src="script.js"></script>
-    <script src="popup.js"></script>
 
 </body>
 </html>
