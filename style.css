@@ -215,7 +215,7 @@ blockquote { border-left: 4px solid #F47A1F; padding: 10px 20px; margin: 30px 0;
   line-height: 1; /* 불필요한 줄 간격 제거 */
 }
 
-/* ==================== 팝업창 스타일 ==================== */
+/* ==================== 자동 실행 팝업창 스타일 ==================== */
 
 /* 팝업 배경 (어둡게 처리) */
 #popup-overlay {
@@ -228,27 +228,36 @@ blockquote { border-left: 4px solid #F47A1F; padding: 10px 20px; margin: 30px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2000; /* 다른 요소들보다 위에 오도록 설정 */
 }
 
 /* 팝업창 본체 */
 #popup-window {
     background-color: #ffffff;
-    padding: 40px;
-    max-width: 550px;
+    padding: 40px 50px;
+    max-width: 600px;
     width: 90%;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px B0px rgba(0, 0, 0, 0.2);
     text-align: center;
     position: relative;
 }
 
-/* 팝업창 제목 */
+/* 팝업창 슬로건 */
 #popup-window h3 {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     color: #003366; /* 신보그룹 네이비 블루 */
-    margin: 0 0 25px 0;
+    margin: 0 0 10px 0;
 }
+
+/* 팝업창 메인 제목 */
+#popup-window h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 30px 0;
+}
+
 
 /* 팝업창 본문 */
 #popup-window p {
@@ -288,5 +297,5 @@ blockquote { border-left: 4px solid #F47A1F; padding: 10px 20px; margin: 30px 0;
 
 /* 팝업 숨김 처리용 클래스 */
 .popup-hidden {
-    display: none;
+    display: none !important;
 }
