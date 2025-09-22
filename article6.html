@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신보, '스파크 2기' 인턴십 최종 선발 완료 - 신보 웹진</title>
+    <link rel="stylesheet" href="style.css?v=13">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="logo.png" alt="신보 로고"></a>
+            </div>
+            <button class="hamburger-menu" id="hamburger-button" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html#highlight">Highlight</a></li>
+                    <li><a href="index.html#issue">상반기 이슈</a></li>
+                    <li><a href="index.html#group-story">그룹 스토리</a></li>
+                    <li><a href="index.html#featured">기획</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <div class="article-container">
+            <div class="article-title-box">
+                <h1>신보, '스파크(S'PARK) 2기' 인턴십 최종 선발</h1>
+                <h2>9월 1일부로 6개월간의 전문 인재 양성 과정 시작</h2>
+            </div>
+            <div class="article-content">
+<div style="text-align: center;">
+  <img src="인턴십 사진2.png" alt="스파크 인턴십 사진" style="width: auto; height: auto; max-width: 80%;">
+</div>                <p>신보의 미래 성장을 이끌 '스파크(S'PARK) 2기' 인턴십의 최종 합격자 선발이 완료되었습니다.</p>
+                <p>선발된 인원들은 오는 9월 1일부터 6개월간의 인턴십 프로그램에 참여하게 됩니다.</p>
+                
+                <h3>체계적인 인재 양성</h3>
+                <p>'스파크' 인턴십은 신보의 성장에 필요한 전문 인력을 체계적으로 양성하기 위해 기획되었습니다.</p>
+                    <p>회사의 규모가 커지고 사업 분야가 전문화됨에 따라, 신성장 동력을 발굴하고 더 큰 기업으로 도약하기 위해서는 실무 역량을 갖춘 인재 확보가 무엇보다 중요해졌습니다. '스파크' 인턴십은 회사의 핵심 가치를 공유하고 현장 실무에 빠르게 적응할 수 있는 인력을 직접 선발하고 교육하는 것을 목표로 합니다.</p>
+                
+                <h3>'스파크 1기'의 성공 사례</h3>
+                <p>이미 현장에서 든든한 동료로 자리 잡은 '스파크 1기' 선배들의 모습이 바로 그 좋은 예입니다. 지난해 인턴 과정을 수료하고 정규직으로 합류한 1기 인원들은 현재 각자의 자리에서 성공적으로 업무를 수행하며 회사에 새로운 활력이 되어주고 있습니다.</p>
+                
+                <img src="인턴십 사진1.png" alt="스파크 1기 단체 사진" class="article-image">
+
+                <h3>실무 중심의 6개월 과정</h3>
+                <p>'스파크 2기'로 선발된 인원들은 입사 후 6개월간의 인턴 과정을 거치게 됩니다. 첫 3개월은 본사에서 자재, 적산, 견적 등 현장관리에 필요한 핵심 이론 교육을 이수하고, 이후 3개월은 현장에 배치되어 실제 업무를 수행하며 실무 경험을 쌓을 예정입니다.</p>
+                <br>
+                <p>새로 합류할 인턴들이 신보의 일원으로서 소속감을 느끼고 전문성을 갖춘 인재로 성장할 수 있도록, 임직원 여러분의 따뜻한 환영과 적극적인 협조를 부탁드립니다.</p>
+            
+            </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="index.html" class="back-to-list-button">웹진 목록으로 돌아가기</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>신보의 사람, 현장, 문화 이야기를 전합니다.</p>
+            <p>발행처 : 신보 인사팀 ㅣ 문의 : jhlee@shinbonet.com</p>
+            <p>© 2025 Shinbo. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // 햄버거 메뉴 스크립트
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const mainNav = document.getElementById('main-nav');
+            if (hamburgerButton && mainNav) {
+                hamburgerButton.addEventListener('click', function() {
+                    mainNav.classList.toggle('is-active');
+                });
+                mainNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mainNav.classList.remove('is-active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

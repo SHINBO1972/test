@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신보그룹 제53주년 창립기념식 - 신보그룹 웹진</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* 페이지 제목과 소개 카드 사이의 간격 */
+        .article-title-box + .intro-text-block {
+            margin-top: 40px;
+        }
+        
+        /* ▼▼▼ 1x1 소개 카드 스타일 (새로 추가) ▼▼▼ */
+        .intro-text-block {
+            background-color: #fff; /* 흰색 */
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 30px 40px;
+            margin-bottom: 50px; /* 아래 수상자 카드들과의 간격 확보 */
+            text-align: center;
+        }
+        .intro-text-block p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        .intro-text-block p:last-child {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: #212529;
+        }
+        /* ▲▲▲ 1x1 소개 카드 스타일 끝 ▲▲▲ */
+
+        /* 5개의 카드를 감싸는 그리드 컨테이너 */
+        .card-grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        /* 개별 카드 스타일 */
+        .topic-card {
+            background-color: #fff; border: 1px solid #eee; border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: left; display: flex;
+            flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .topic-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.12); }
+        .topic-card-image { width: 100%; height: 220px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+        .topic-card-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .topic-card-content h3 { font-size: 1.5em; color: #222; margin: 0 0 15px 0; line-height: 1.4; border-bottom: none; padding-bottom: 0; }
+        .topic-card-content h4 { font-size: 1em; color: #555; margin: -10px 0 10px 0; font-weight: normal; }
+        .topic-card-content p { font-size: 1.2em; color: #333; font-weight: bold; margin-bottom: 20px; flex-grow: 1; }
+        .open-modal-btn {
+            cursor: pointer; display: inline-block; align-self: flex-start; background-color: #F47A1F;
+            color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;
+            font-weight: bold; transition: background-color 0.2s ease; border: none; margin-top: auto;
+        }
+        .open-modal-btn:hover { background-color: #d86a1b; }
+
+        /* --- 팝업(모달) 스타일 --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); display: none; justify-content: center;
+            align-items: center; z-index: 2000; padding: 20px; box-sizing: border-box;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background-color: #fff; padding: 40px; border-radius: 8px; max-width: 800px;
+            width: 100%; max-height: 90vh; overflow-y: auto; position: relative;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2); box-sizing: border-box;
+        }
+        .modal-content h2 { font-size: 2em; margin-top: 0; margin-bottom: 25px; color: #333; }
+        .modal-content p { font-size: 1.1em; line-height: 1.8; margin-bottom: 20px; }
+        .modal-content img { max-width: 100%; height: auto; display: block; margin: 30px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .close-modal-btn {
+            position: absolute; top: 15px; right: 15px; font-size: 28px;
+            font-weight: bold; color: #888; background: none; border: none;
+            cursor: pointer; line-height: 1;
+        }
+        .close-modal-btn:hover { color: #333; }
+
+        /* --- 반응형 웹 디자인 --- */
+        @media (max-width: 1024px) {
+            .card-grid-container { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .card-grid-container { grid-template-columns: 1fr; }
+            .intro-text-block { padding: 25px 20px; }
+            .modal-content { padding: 30px 20px; }
+            .modal-content h2 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="logo.png" alt="신보그룹 로고"></a>
+            </div>
+            <button class="hamburger-menu" id="hamburger-button" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html#highlight">Highlight</a></li>
+                    <li><a href="index.html#issue">상반기 이슈</a></li>
+                    <li><a href="index.html#group-story">그룹 스토리</a></li>
+                    <li><a href="index.html#featured">기획</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="article-main">
+        <div class="container">
+            <div class="article-title-box">
+                <h1>신보그룹 제53주년 창립기념식</h1>
+                <h2>세상의 모든 전기를 연결합니다</h2>
+            </div>
+            
+            <div class="intro-text-block">
+                <p>지난 2025년 6월 20일(금), 그랜드하얏트호텔 그랜드볼륨홀에서<br>
+                    신보그룹 제53주년 창립기념식이 성황리에 종료되었습니다.</p>
+                <p>1972년 전기공사 회사로 출발한 신보그룹은 50년이 넘는 시간동안 끊임없는 변화와 도전을 통해<br>
+                    오늘날 전기·통신·소방 공사업계의 중심이 되었습니다.</p>
+                <p>함께 땀 흘리고 도전했던 1년의 시간을 돌아보며,<br>
+                    신보그룹의 성장 원동력이 되어준 우수인재들에게 감사의 말씀을 전합니다.</p>
+                <p><strong>그중에서 우수공무와 우수사원상을 수상한 분들의 소감을 직접 들어보겠습니다.</strong></p>
+            </div>
+            <div class="card-grid-container">
+                <article class="topic-card">
+                    <img src="우수공무 이은성 차장2.jpg" alt="이은성 차장 사진" class="topic-card-image">
+                    <div class="topic-card-content">
+                        <h3>우수공무</h3>
+                        <h4>해외플랜트부문 해외플랜트본부</h4>
+                        <p>이은성 차장</p>
+                        <button class="open-modal-btn" data-modal-target="#modal-1">수상소감 보기</button>
+                    </div>
+                </article>
+                <article class="topic-card">
+                    <img src="우수사원 오영삼 부장1.jpg" alt="오영삼 부장 사진" class="topic-card-image">
+                    <div class="topic-card-content">
+                        <h3>우수사원</h3>
+                        <h4>해외플랜트부문 해외플랜트본부</h4>
+                        <p>오영삼 부장</p>
+                        <button class="open-modal-btn" data-modal-target="#modal-2">수상소감 보기</button>
+                    </div>
+                </article>
+                <article class="topic-card">
+                    <img src="우수사원 김준용2.jpg" alt="김준용 과장 사진" class="topic-card-image">
+                    <div class="topic-card-content">
+                        <h3>우수사원</h3>
+                        <h4>전력인프라부문 국내건축팀</h4>
+                        <p>김준용 과장</p>
+                        <button class="open-modal-btn" data-modal-target="#modal-3">수상소감 보기</button>
+                    </div>
+                </article>
+                <article class="topic-card">
+                    <img src="한정환 과장2.png" alt="한정환 과장 사진" class="topic-card-image">
+                    <div class="topic-card-content">
+                        <h3>우수사원</h3>
+                        <h4>공공사업부문 재경본부 자금팀</h4>
+                        <p>한정환 과장</p>
+                        <button class="open-modal-btn" data-modal-target="#modal-4">수상소감 보기</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>신보그룹의 사람, 현장, 문화 이야기를 전합니다.</p>
+            <p>발행처 : 신보그룹 인사팀 ㅣ 문의 : jhlee@shinbonet.com</p>
+            <p>© 2025 Shinbo Group. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="modal-1">
+        <div class="modal-content">
+            <button class="close-modal-btn">×</button>
+            <h2>'신보'라는 이름만으로도 자부심이 되도록</h2>
+            <img src="우수공무 이은성 차장.jpg" alt="이은성 차장 수상 사진">
+             <h2>우수공무</h2>
+<p>해외플랜트부문 해외플랜트본부 <strong>이은성 차장</p></strong>
+            <p>우수 공무상이라는 생각지도 못한 큰 상을 주셔서 진심으로 감사드립니다. 아직 부족한 점이 많은 저에게 이 상은 더 열심히 하라는 격려의 의미로 소중히 받아들이겠습니다.</p>
+            <p>저는 2018년 3월에 입사하여 해외 플랜트 현장에서 공무를 담당하고 있습니다. 특히 작년 파나마 LNG 현장에서의 경험은 잊을 수 없습니다. 전국적인 파업과 여러 위험 요소 등 극심한 악조건 속에서도, 현장 소장님 및 부장님들과 가족처럼 한마음으로 뭉쳐 무사히 프로젝트를 마무리할 수 있었던 경험은 제게 큰 보람과 자부심을 안겨주었습니다.</p> 
+            <p>앞으로도 이 마음가짐으로, '신보'라는 이름만으로도 어떤 일을 하는 훌륭한 회사인지 모두가 알 수 있도록 맡은 자리에서 최선을 다하겠습니다.</p> 
+        </div>
+    </div>
+    <div class="modal-overlay" id="modal-2">
+        <div class="modal-content">
+            <button class="close-modal-btn">×</button>
+            <h2>전기 공사에 종사한지 34년만에 첫 수상</h2>
+            <img src="우수사원 오영삼 부장2.jpg" alt="오영삼 부장 수상 사진">
+           <h3>우수사원</h3>
+<strong><p>해외플랜트부문 해외플랜트본부 오영삼 부장</p></strong>
+            <p>전기 공사 업무에 종사한지 34년 동안 많은 현장에서 일을 하였지만 처음으로 우수사원 상을 받게 되어 너무 기쁘고 영광입니다.</p>
+            <p>2020년에 입사하여 베트남 VLSU 계장 공사 현장에서 공무 및 소장의 업무를 겸하였으며, 2022년에는 폴란드 EGAT 전기 공사 현장에 공무업무를 지원하였으며, 2023년부터 인도네시아 LINE 현장에서 계장공사 소장 업무를 맡고 있습니다.</p>
+            <p>특히 지금 있는 인도네시아 현장은 기억에 많이 남습니다. 작년 6월까지 Progress 지연 및 현지인 기술 부족으로 시공사에서 많은 지적을 받았지만 7월이후 본사에서 한국인 직원 지원과 현지에 근무중인 직원들의 협력으로 작년 12월말에 목표 99% (C-Space 기준, 당사 기준 Progress 95%)를 달성하였습니다.</p>
+            <p>물론 과정이 쉽지만은 않았습니다. 현지인 근로자들의 계장공사에 대한 기술부족과 현장에 시공된 계측장비 부품들의 도난으로 작업 마무리에 많은 어려움이 있었으나 도난에 대한 대책마련과 분실자재의 신속 재구매와 재시공으로 현장 생산가동에 문제가 없도록 하였습니다.</p>
+            <p>앞으로 현재 맡고 있는 해외 Project를 잘 마무리하고, 차후에도 직원들과 함께 업무를 의논하며, 효율적으로 업무를 잘하는 현장 소장이 되고 싶습니다.</p>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modal-3">
+        <div class="modal-content">
+            <button class="close-modal-btn">×</button>
+            <h2>묵묵히, 함께, 단단하게</h2>
+            <img src="우수사원 김준용1.jpg" alt="김준용 과장 수상 사진">
+                       <h3>우수사원</h3>
+<strong><p>전력인프라부문 국내건축팀 김준용 과장</p></strong>
+            <p>먼저 이렇게 과분한 상을 주셔서 감사하지만, 한편으로는 어깨가 무겁습니다.</p>
+            <p>회사에 혼자 하는 일이 없듯이, 이 상은 결코 저 혼자 잘해서 받은 것이 아니라고 생각합니다. 앞으로 더 잘하라는 격려의 뜻으로 주신 상이라 믿고, 더 열심히 해야겠다는 다짐을 하게 됩니다.</p>
+            <p>저는 2017년 8월에 입사하여, 해외현장 구매팀을 시작으로 견적팀, 사업팀, 여러 현장을 거쳐 지금은 국내건축팀에서 PM 업무를 맡고 있습니다. 다양한 팀에서 일했던 모든 경험이 지금의 저를 만든 것 같습니다.</p>
+            <p>특히 작년 현대엔지니어링 의왕 차세대 배터리 연구소 현장이 기억에 남습니다. 공기가 매우 촉박하고 현장 간섭이 많아, 오랫동안 주말 없이 출근하거나 밤을 새워 2교대로 철야 작업을 해야만 했습니다.</p>
+            <p>솔직히 당시에는 힘들다는 생각보다는, '어떻게든 이 공사를 성공적으로 진행시켜야 한다'는 마음이 가장 컸던 것 같습니다. 그렇게 모두가 힘을 합치니, 원청사에서도 문제없이 공사를 끝내준 것에 대해 저희의 노력을 인정해주었고, 현장 또한 무사히 준공될 수 있었습니다. 그리고 마침내 입주자들이 건물에 들어와 생활하는 모습을 직접 보았을 때, 그간의 모든 힘든 과정이 큰 보람으로 느껴졌습니다.</p>
+            <p>저는 거창하게 이루고 싶은 목표를 내세우기보다는, 항상 마음속에 새기는 문장이 하나 있습니다. 바로 ‘개인의 성장은 회사의 성장에 직결되지만, 회사의 성장이 곧 개인의 성장으로 직결되진 않는다.’는 말입니다. 저는 이 말을, 회사의 성장에 안주하지 않고 그에 발맞춰 저 자신도 끊임없이 성장해야 한다는 다짐으로 삼고 있습니다.</p>
+            <p>오늘 주신 이 상의 무게를 잊지 않고, 항상 성장을 고민하며 묵묵히 제 몫을 다하는 직원이 되겠습니다.</p>
+            <p>다시 한번 진심으로 감사드립니다.</p>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modal-4">
+        <div class="modal-content">
+            <button class="close-modal-btn">×</button>
+            <h2>혼자가 아닌, '우리'가 함께 받은 상</h2>
+            <img src="한정환 과장1.png" alt="한정환 과장 수상 사진">
+              <h3>우수사원</h3>
+<strong><p>공공사업부문 재경본부 한정환 과장</p></strong>
+            <p>안녕하십니까. 먼저 우수사원이라는 영광스러운 상을 주셔서 진심으로 감사드립니다. 이 상은 늘 곁에서 함께 고민하고 묵묵히 애써주신 재경본부 팀원들이 계셨기에 받을 수 있었다고 생각합니다. 이 자리를 빌려 동료분들께 깊은 감사의 마음을 전합니다.</p>
+            <p>2015년, 대학생 인턴으로 회사에 첫발을 내디딘 것이 엊그제 같은데, 어느덧 정식 입사 10년 차가 되었습니다. 해외 파견부터 국내 현장 근무까지, 지난 10년은 다양한 경험을 통해 배우고 성장할 수 있었던 소중한 시간이었습니다. 현재는 해외건축본부와 통신 현장의 자금 업무, 그리고 법인카드 관련 업무를 담당하고 있습니다.</p>
+            <p>또한, 재경본부 내에서 다양한 업무를 맡으며 각기 다른 특성에 적응하는 데 어려움을 겪기도 했습니다. 하지만 그때마다 주어진 업무를 온전히 '제 것'으로 만들기 위해 끊임없이 노력했고, 그 과정들이 쌓여 지금의 제가 될 수 있었다고 생각합니다. 이러한 노력을 인정받아 이처럼 뜻깊은 상까지 받게 되니 정말 감사한 마음뿐입니다.</p>
+            <p>오늘 받은 이 상을, 앞으로 더 큰 책임감을 가지고 조직에 보탬이 되라는 격려로 여기겠습니다. 새로운 업무나 어려운 상황이 주어질 때마다 누구보다 앞장서서 맡은 바를 완수하겠습니다.</p>
+            <p>회사가 1조를 넘어 100조 기업으로 성장해나가는 그 위대한 여정에, 그 위상에 걸맞은 인재가 될 수 있도록 끊임없이 정진하겠습니다. 다시 한번 진심으로 감사드립니다.</p>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // --- 1. 햄버거 메뉴 기능 ---
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const mainNav = document.getElementById('main-nav');
+
+        if (hamburgerButton && mainNav) {
+            hamburgerButton.addEventListener('click', function() {
+                mainNav.classList.toggle('is-active');
+            });
+        }
+
+        // --- 2. 부드러운 스크롤 기능 (서브페이지에서는 링크 이동) ---
+        document.querySelectorAll('header nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    if (mainNav && mainNav.classList.contains('is-active')) {
+                        mainNav.classList.remove('is-active');
+                    }
+                }
+            });
+        });
+
+        // --- 3. 스크롤 애니메이션 기능 ---
+        const sections = document.querySelectorAll('.section');
+        if (sections.length > 0) {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+        }
+
+        // --- 4. 팝업(모달) 기능 ---
+        const openModalButtons = document.querySelectorAll('.open-modal-btn');
+        const closeModalButtons = document.querySelectorAll('.close-modal-btn');
+        const modalOverlays = document.querySelectorAll('.modal-overlay');
+
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modalId = button.getAttribute('data-modal-target');
+                const modal = document.querySelector(modalId);
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal-overlay');
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        modalOverlays.forEach(overlay => {
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                const activeModal = document.querySelector('.modal-overlay.active');
+                if (activeModal) {
+                    activeModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+
+    });
+    </script>
+</body>
+</html>

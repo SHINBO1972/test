@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공식 채용홈페이지 리뉴얼 - 신보그룹 웹진</title>
+    <link rel="stylesheet" href="style.css?v=original">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="logo.png" alt="신보그룹 로고"></a>
+            </div>
+            
+            <button class="hamburger-menu" id="hamburger-button" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html#highlight">Highlight</a></li>
+                    <li><a href="index.html#issue">상반기 이슈</a></li>
+                    <li><a href="index.html#group-story">그룹 스토리</a></li>
+                    <li><a href="index.html#featured">기획</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <div class="article-container">
+            <div class="article-title-box">
+                <h1>공식 채용홈페이지 리뉴얼</h1>
+                <h2>"당신의 빛나는 도전을 완성하세요"</h2>
+            </div>
+            <div class="article-content">
+                <img src="hilight_card3.png" alt="채용홈페이지 리뉴얼 메인 이미지" class="article-image">
+                <p>신보그룹이 지원자 여러분께 더 나은 채용 경험을 제공하기 위해 공식 채용 홈페이지를 새롭게 단장했습니다.</p>
+                <p>이번 리뉴얼은 <strong>사용자 친화적인 디자인과 직관적인 정보 탐색</strong>에 중점을 두었습니다.</p>
+                
+                <h3>주요 변경 사항</h3>
+                <p>새로운 채용 사이트는 지원자들이 신보의 비전과 가치를 한눈에 파악하고, 보다 쉽고 편리하게 지원 절차를 진행할 수 있도록 사용자 경험(UX/UI)을 대폭 개선했습니다. 또한, 지원 절차를 간소화하여 편의성을 크게 높였습니다.</p>
+                <img src="채용1-1.png" alt="채용홈페이지 리뉴얼 메인 이미지" class="article-image">
+                <br>
+                <img src="채용2.png" alt="채용홈페이지 리뉴얼 메인 이미지" class="article-image">
+
+                <div class="info-box">
+                    <p><strong>리뉴얼 핵심 포인트</strong></p>
+                    <ul>
+                        <li>사용자 중심의 직관적인 메뉴 구성 (신보 소개, 채용 공고 등)</li>
+                        <li>생생한 직무 정보 제공 (상세 업무, 필요 역량 등)</li>
+                        <li>지원자 편의성을 고려한 UX/UI 개선</li>
+                        <li>신보의 비전과 가치를 담은 콘텐츠 강화</li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="https://shinbonet.careerlink.kr/" target="_blank" class="back-to-list-button">리뉴얼된 채용 홈페이지 바로가기</a>
+                </div>
+                <br>
+                <p>사내 임직원 여러분께서도 새롭게 바뀐 채용 사이트에 많은 관심을 부탁드리며, 주변의 뛰어난 인재들에게 적극적으로 알려주시어 신보의 미래를 함께 이끌어갈 동료를 맞이하는 데 힘을 보태주시길 바랍니다.</p>
+            </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="index.html" class="back-to-list-button">웹진 목록으로 돌아가기</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>신보의 사람, 현장, 문화 이야기를 전합니다.</p>
+            <p>발행처 : 신보 인사팀 ㅣ 문의 : jhlee@shinbonet.com</p>
+            <p>© 2024 Shinbo. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 햄버거 메뉴 스크립트
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const mainNav = document.getElementById('main-nav');
+            if (hamburgerButton && mainNav) {
+                hamburgerButton.addEventListener('click', function() {
+                    mainNav.classList.toggle('is-active');
+                });
+                mainNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mainNav.classList.remove('is-active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
