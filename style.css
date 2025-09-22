@@ -1,99 +1,382 @@
-// HTML 문서가 모두 로드된 후, 아래의 모든 코드를 딱 한 번 실행합니다.
-document.addEventListener('DOMContentLoaded', function() {
+/* =================================================================
+   기본 설정 (Reset & Variables)
+   ================================================================= */
 
-    // --- 1. 햄버거 메뉴 기능 ---
-    const hamburgerButton = document.getElementById('hamburger-button');
-    const mainNav = document.getElementById('main-nav');
+:root {
+    --main-blue: #003366;
+    --text-dark: #333333;
+    --text-light: #555555;
+    --border-color: #e0e0e0;
+    --bg-light: #f9f9f9;
+}
 
-    if (hamburgerButton && mainNav) {
-        hamburgerButton.addEventListener('click', function() {
-            mainNav.classList.toggle('is-active');
-        });
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif; /* 구글 폰트이지만, 없다면 기본 산세리프 폰트 사용 */
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =================================================================
+   헤더 (Header)
+   ================================================================= */
+
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+header .logo img {
+    height: 30px;
+}
+
+header nav ul {
+    display: flex;
+    gap: 40px;
+}
+
+header nav ul li a {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: var(--main-blue);
+}
+
+.hamburger-menu {
+    display: none; /* 평소엔 숨김 */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+/* =================================================================
+   메인 비주얼
+   ================================================================= */
+
+#main-visual {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: var(--bg-light);
+    padding-top: 80px; /* 헤더 높이만큼 */
+}
+
+#main-visual .slogan {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--main-blue);
+    margin-bottom: 10px;
+}
+
+#main-visual p {
+    font-size: 18px;
+    color: var(--text-light);
+}
+
+/* =================================================================
+   공통 섹션 및 카드 레이아웃
+   ================================================================= */
+
+.section {
+    padding: 80px 0;
+}
+
+.section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--main-blue);
+}
+
+.section .section-subtitle {
+    font-size: 18px;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.card .card-content {
+    padding: 25px;
+}
+
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.card .read-more {
+    font-weight: 700;
+    color: var(--main-blue);
+}
+
+/* =================================================================
+   소개 섹션 (Intro)
+   ================================================================= */
+#intro {
+    background-color: #fff;
+}
+.intro-text {
+    text-align: center;
+    font-size: 18px;
+    line-height: 2;
+}
+.intro-text p {
+    margin-bottom: 30px;
+}
+.intro-text .intro-last-line {
+    font-weight: 700;
+}
+
+/* =================================================================
+   푸터 (Footer)
+   ================================================================= */
+
+footer {
+    background-color: #f2f2f2;
+    padding: 40px 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+footer p {
+    margin-bottom: 10px;
+}
+
+
+/* =================================================================
+   스크롤 애니메이션
+   ================================================================= */
+.section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =================================================================
+   모달/팝업창 공통 스타일
+   ================================================================= */
+
+/* 어두운 배경 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; /* 평소엔 숨김 */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* 팝업/모달 활성화 시 */
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* 팝업/모달 창 본체 */
+.modal-content {
+    background-color: #ffffff;
+    padding: 40px 50px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+/* 팝업창 슬로건 */
+.modal-content h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #003366; /* 신보그룹 네이비 블루 */
+    margin: 0 0 10px 0;
+}
+
+/* 팝업창 메인 제목 */
+.modal-content h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 30px 0;
+}
+
+/* 팝업/모달 본문 */
+.modal-content p {
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.8;
+    margin: 15px 0;
+}
+
+/* 우측 상단 'X' 닫기 버튼 */
+.modal-content .close-modal-btn {
+    cursor: pointer;
+}
+.modal-content .close-modal-btn:first-of-type {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #888;
+    padding: 0;
+}
+
+/* 하단 '닫기' 버튼 */
+.modal-content .close-modal-btn:last-of-type {
+    background-color: transparent;
+    border: 1px solid #555;
+    color: #333;
+    padding: 10px 40px;
+    font-size: 16px;
+    margin-top: 30px;
+    transition: all 0.2s ease;
+}
+
+.modal-content .close-modal-btn:last-of-type:hover {
+    background-color: #f5f5f5;
+}
+
+
+/* =================================================================
+   반응형 (모바일)
+   ================================================================= */
+@media (max-width: 768px) {
+    header nav {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        border-top: 1px solid var(--border-color);
+    }
+    header nav.is-active {
+        display: block;
+    }
+    header nav ul {
+        flex-direction: column;
+        padding: 20px;
+        gap: 0;
+    }
+    header nav ul li a {
+        display: block;
+        padding: 15px 0;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+    }
+    header nav ul li:last-child a {
+        border-bottom: none;
     }
 
-    // --- 2. 부드러운 스크롤 기능 ---
-    // (메인 페이지에서는 부드럽게 스크롤, 서브 페이지에서는 메인으로 이동)
-    document.querySelectorAll('header nav ul li a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                document.querySelector(href).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                // 모바일 메뉴가 열려있다면 클릭 시 닫기
-                if (mainNav && mainNav.classList.contains('is-active')) {
-                    mainNav.classList.remove('is-active');
-                }
-            }
-        });
-    });
-
-    // --- 3. 스크롤 애니메이션 기능 ---
-    // (메인 페이지의 .section 요소들이 나타날 때 적용)
-    const sections = document.querySelectorAll('.section');
-    if (sections.length > 0) {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-        const sectionObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        sections.forEach(section => {
-            sectionObserver.observe(section);
-        });
+    .hamburger-menu {
+        display: flex;
     }
-
-    // --- 4. 팝업(모달) 기능 ---
-    // (모달이 있는 페이지에서만 작동)
-    const openModalButtons = document.querySelectorAll('.open-modal-btn');
-    const closeModalButtons = document.querySelectorAll('.close-modal-btn');
-    const modalOverlays = document.querySelectorAll('.modal-overlay');
-
-    openModalButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modalId = button.getAttribute('data-modal-target');
-            const modal = document.querySelector(modalId);
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-    });
-
-    closeModalButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modal = button.closest('.modal-overlay');
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-
-    modalOverlays.forEach(overlay => {
-        overlay.addEventListener('click', (event) => {
-            if (event.target === overlay) {
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            const activeModal = document.querySelector('.modal-overlay.active');
-            if (activeModal) {
-                activeModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        }
-    });
-
-});
+    
+    #main-visual .slogan {
+        font-size: 36px;
+    }
+    .section h2 {
+        font-size: 28px;
+    }
+}
