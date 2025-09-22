@@ -100,7 +100,7 @@ header nav ul li a:hover {
 }
 
 /* =================================================================
-   메인 비주얼 (★ 이미지 복구)
+   메인 비주얼
    ================================================================= */
 
 #main-visual {
@@ -112,7 +112,7 @@ header nav ul li a:hover {
     align-items: center;
     text-align: center;
     padding-top: 80px;
-    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('main_visual.jpg'); /* 이미지 어둡게 처리 + 이미지 경로 */
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('main_visual.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -249,6 +249,55 @@ footer p {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* =================================================================
+   ★ 상세 기사 페이지 스타일 (Article)
+   ================================================================= */
+.article-header {
+    padding: 120px 0 60px;
+    text-align: center;
+    background-color: var(--bg-light);
+}
+.article-header h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--main-blue);
+}
+.article-header .meta {
+    font-size: 16px;
+    color: var(--text-light);
+}
+.article-content {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+    font-size: 17px;
+    line-height: 2;
+}
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 40px 0;
+    border-radius: 5px;
+}
+.article-content h2 {
+    font-size: 28px;
+    margin: 50px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+.article-content p {
+    margin-bottom: 25px;
+}
+.article-content blockquote {
+    margin: 30px 0;
+    padding: 20px 30px;
+    background-color: var(--bg-light);
+    border-left: 4px solid var(--main-blue);
+    font-style: italic;
+}
+
 
 /* =================================================================
    모달/팝업창 공통 스타일
@@ -388,5 +437,8 @@ footer p {
     }
     .card-container {
         grid-template-columns: 1fr;
+    }
+    .article-header h1 {
+        font-size: 32px;
     }
 }
