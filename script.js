@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- 2. 부드러운 스크롤 기능 ---
-    // (메인 페이지에서는 부드럽게 스크롤, 서브 페이지에서는 메인으로 이동)
     document.querySelectorAll('header nav ul li a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // --- 3. 스크롤 애니메이션 기능 ---
-    // (메인 페이지의 .section 요소들이 나타날 때 적용)
     const sections = document.querySelectorAll('.section');
     if (sections.length > 0) {
         const observerOptions = {
@@ -52,8 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 4. 팝업(모달) 기능 ---
-    // (모달이 있는 페이지에서만 작동)
+    // --- 4. 팝업(모달) 기능 --- (기존 코드는 그대로 둡니다)
     const openModalButtons = document.querySelectorAll('.open-modal-btn');
     const closeModalButtons = document.querySelectorAll('.close-modal-btn');
     const modalOverlays = document.querySelectorAll('.modal-overlay');
@@ -96,28 +93,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-});
 
-
-
-/* ==================== 팝업창 스크립트 ==================== */
-
-// 페이지 로드가 완료되면 팝업을 띄우는 함수를 실행합니다.
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // 팝업 관련 요소들을 변수에 담습니다.
+    /* =================================================================
+        ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ 팝업창 스크립트 (여기로 통합) ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+       ================================================================= */
+       
     const popupOverlay = document.getElementById('popup-overlay');
     const closeBtn = document.getElementById('popup-close-btn');
     const confirmBtn = document.getElementById('popup-confirm-btn');
 
-    // 팝업을 보여주는 함수
     function showPopup() {
         if(popupOverlay) {
             popupOverlay.classList.remove('popup-hidden');
         }
     }
 
-    // 팝업을 숨기는 함수
     function hidePopup() {
         if(popupOverlay) {
             popupOverlay.classList.add('popup-hidden');
@@ -134,4 +124,5 @@ document.addEventListener('DOMContentLoaded', function() {
     if(confirmBtn) {
         confirmBtn.addEventListener('click', hidePopup);
     }
-});
+    
+}); // <<<--- 모든 코드가 이 괄호 안에 있도록 합니다.
